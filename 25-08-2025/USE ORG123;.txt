@@ -1,0 +1,25 @@
+USE ORG123;
+CREATE TABLE Department (
+    DeptID INT PRIMARY KEY,
+    DeptName VARCHAR(50) NOT NULL
+);
+CREATE TABLE Employee (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(50) NOT NULL,
+    DeptID INT,
+    FOREIGN KEY (DeptID) REFERENCES Department(DeptID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+INSERT INTO Department (DeptID, DeptName) VALUES
+(1, 'HR'),
+(2, 'IT'),
+(3, 'Finance');
+INSERT INTO Employee (EmpID, EmpName, DeptID) VALUES
+(101, 'Aditi', 1),
+(102, 'Ravi', 2),
+(103, 'Sneha', 2),
+(104, 'Karan', 3);
+UPDATE Department SET DeptID = 20 WHERE DeptID = 2;
+DELETE FROM Department WHERE DeptID = 1;
+SELECT * FROM Department;

@@ -1,0 +1,74 @@
+USE ORG123;
+
+CREATE TABLE Department (
+    DeptID INT PRIMARY KEY,
+    DeptName VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Employee (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(50) NOT NULL,
+    DeptID INT,
+    FOREIGN KEY (DeptID) REFERENCES Department(DeptID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+INSERT INTO Department (DeptID, DeptName) VALUES
+(1, 'Operations'),
+(2, 'Development'),
+(3, 'Accounts');
+
+INSERT INTO Employee (EmpID, EmpName, DeptID) VALUES
+(201, 'Arjun', 1),
+(202, 'Meera', 2),
+(203, 'Imran', 2),
+(204, 'Tara', 3);
+
+UPDATE Department SET DeptID = 20 WHERE DeptID = 2;
+DELETE FROM Department WHERE DeptID = 1;
+
+SELECT * FROM Department;
+SELECT * FROM Employee;
+
+CREATE TABLE Worker (
+    WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    FIRST_NAME CHAR(25) NOT NULL,
+    LAST_NAME CHAR(25) NOT NULL,
+    SALARY INT(15) NOT NULL,
+    JOINING_DATE DATETIME,
+    DEPARTMENT CHAR(25) NOT NULL,
+    USERNAME CHAR(25) NOT NULL,
+    AGE INT NOT NULL
+);
+
+INSERT INTO Worker 
+    (WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT, USERNAME, AGE) VALUES
+    (001, 'Rohan', 'Malik',   95000,  '15-02-20 09.00.00', 'Operations','ROHAN25',   28),
+    (002, 'Kavya', 'Sharma',  87000,  '15-06-11 09.00.00', 'Support','KAVYA12', 24),
+    (003, 'Siddharth', 'Bose',280000, '15-02-20 09.00.00', 'Development','SID33',  30),
+    (004, 'Ananya', 'Gupta',  450000, '15-02-20 09.00.00', 'Support','ANU45', 27),
+    (005, 'Ritika', 'Rao',    510000, '15-06-11 09.00.00', 'Support','RIT55', 29),
+    (006, 'Yash', 'Patel',    210000, '15-06-11 09.00.00', 'Accounts','YASH77', 32),
+    (007, 'Pooja', 'Iyer',     89000, '15-01-20 09.00.00', 'Accounts','POO99', 25),
+    (008, 'Dev', 'Chatterjee',91000,  '15-04-11 09.00.00', 'Support','DEV88',  26);
+
+SELECT * FROM Worker WHERE first_name LIKE '_o_a%';
+
+SELECT first_name, salary, department 
+FROM Worker 
+WHERE salary <= 100000 AND department = 'Support';
+
+CREATE VIEW less_than_1L AS 
+SELECT first_name, salary, department 
+FROM Worker 
+WHERE salary <= 100000 AND department = 'Support';
+
+CREATE OR REPLACE VIEW less_than_1L AS 
+SELECT first_name, salary, department 
+FROM Worker 
+WHERE salary <= 100000 AND department = 'Support';
+
+SELECT * FROM less_than_1L;
+
+DROP VIEW less_than_1L;
